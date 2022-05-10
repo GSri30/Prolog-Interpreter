@@ -1,10 +1,13 @@
 open Expression;;
 
+
+
 exception Not_Unifiable
+
 
 let rec _applyEnv (env:environment) (a:argument) : argument =
     match a with
-    Constant(c,l) -> Constant(c, List.map (_applyEnv env) l)
+    Constant(_,_) -> a
     | Number(_) -> a
     | Variable(v) -> 
         match env with
@@ -12,10 +15,12 @@ let rec _applyEnv (env:environment) (a:argument) : argument =
             | s::xs -> if fst s = v then snd s else _applyEnv xs a
 ;;
 
+
 let applyEnv (env: environment) (cl: clause) =
     match cl with
      Clause(c, ts) -> Clause(c, List.map (_applyEnv env) ts)
 ;;
+
 
 
 let rec _buildEnv (t1:argument) (t2:argument) : environment =

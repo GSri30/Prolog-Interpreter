@@ -16,8 +16,6 @@ type query = Query of (clause list)
 val existsInList : 'a -> 'a list -> bool
 
 val listUnion : 'a list -> 'a list -> 'a list
-
-val varsInArgument : argument -> var list 
     
 val varsInClause : clause -> var list 
     

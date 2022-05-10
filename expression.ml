@@ -24,21 +24,37 @@ let rec listUnion l1 l2 = match l1 with
             else ((h)::(listUnion t l2))
 ;;
 
-let rec varsInArgument (a:argument) : var list = 
+let rec print_argument (a:argument) = 
     match a with
-        Variable(v) -> [v]
-        | Constant(c,l) -> List.fold_left listUnion [] (List.map varsInArgument l)
-        | _ -> []
+    | Variable(v) -> Printf.printf " %s " v
+    | Number(n) -> Printf.printf " %d " n
+    | Constant(s,l) -> Printf.printf " %s " s
 ;;
 
-let varsInClause (clause: clause) : var list = 
-    match clause with
-    | Clause(c, l) -> varsInArgument (Constant(c,l))
+let rec printSolution (env:environment) = 
+    match env with 
+         [] -> Printf.printf "true"
+         | [(v,t)] -> (
+             Printf.printf "%s =" v;
+             print_argument t;
+         )
+         | (v,t)::xs -> (
+            Printf.printf "%s =" v;
+            print_argument t;
+            Printf.printf ", ";
+            printSolution xs;
+         )
+;;
+
+let varsInClause (Clause(c,l): clause) : var list = 
+    match (List.hd l) with
+    | Variable(v) -> [v]
+    | _ -> [] 
 ;;
 
 let varsInQuery (query: query) : var list =
     match query with
-    Query(q) -> List.fold_left listUnion [] (List.map varsInClause q) 
+    Query(q) -> varsInClause (List.hd q)
 ;;
 
 let get1char () =
@@ -61,26 +77,4 @@ let rec getSolution (env:environment) (vars:var list) =
             try
                 occurs (env)::getSolution env vs
             with NotFound -> getSolution env vs
-;;
-
-let rec print_argument (a:argument) = 
-    match a with
-    | Variable(v) -> Printf.printf " %s " v
-    | Number(n) -> Printf.printf " %d " n
-    | Constant(s,l) -> Printf.printf " %s " s
-;;
-
-let rec printSolution (env:environment) = 
-    match env with 
-         [] -> Printf.printf "true"
-         | [(v,t)] -> (
-             Printf.printf "%s =" v;
-             print_argument t;
-         )
-         | (v,t)::xs -> (
-            Printf.printf "%s =" v;
-            print_argument t;
-            Printf.printf ", ";
-            printSolution xs;
-         )
 ;;
