@@ -1,0 +1,7 @@
+*.cmx 
+*.cmi 
+*.o 
+evaluate 
+lexer.ml 
+parser.ml 
+parser.mli

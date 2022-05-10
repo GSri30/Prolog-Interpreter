@@ -1,7 +1,6 @@
 open Helper;;
 open Env;;
 
-
 let unifyClauses (c1:clause) (c2:clause) (env:environment) : environment = 
     env @ (buildEnv (applyEnv env c1) (applyEnv env c2))
 ;;
