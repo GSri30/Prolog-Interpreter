@@ -1,22 +1,22 @@
-evaluate : helper.cmx env.cmx interpreter.cmx parser.cmx lexer.cmx evaluate.cmx
-	ocamlfind ocamlopt -linkpkg -package unix -o evaluate helper.cmx env.cmx interpreter.cmx parser.cmx lexer.cmx evaluate.cmx 
+evaluate : expression.cmx env.cmx interpreter.cmx parser.cmx lexer.cmx evaluate.cmx
+	ocamlfind ocamlopt -linkpkg -package unix -o evaluate expression.cmx env.cmx interpreter.cmx parser.cmx lexer.cmx evaluate.cmx 
 
-helper.cmi: helper.mli
-	ocamlopt -c helper.mli
+expression.cmi: expression.mli
+	ocamlopt -c expression.mli
 
-helper.cmx: helper.ml helper.cmi
-	ocamlopt -c helper.ml
+expression.cmx: expression.ml expression.cmi
+	ocamlopt -c expression.ml
 
-env.cmi: env.mli helper.cmi
+env.cmi: env.mli expression.cmi
 	ocamlopt -c env.mli
 
-env.cmx: env.ml env.cmi helper.cmi
+env.cmx: env.ml env.cmi expression.cmi
 	ocamlopt -c env.ml
 
-interpreter.cmi : interpreter.mli helper.cmi env.cmi
+interpreter.cmi : interpreter.mli expression.cmi env.cmi
 	ocamlopt -c interpreter.mli
 
-interpreter.cmx : interpreter.cmi interpreter.ml helper.cmi env.cmi
+interpreter.cmx : interpreter.cmi interpreter.ml expression.cmi env.cmi
 	ocamlopt -c interpreter.ml
 
 parser.ml : parser.mly
