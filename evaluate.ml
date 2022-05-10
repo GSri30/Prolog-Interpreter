@@ -29,7 +29,7 @@ let evaluate () =
     true -> print_string "\n"
     | false -> print_string "false.\n\n"  
     done
-  with _ ->  print_string "\n Stopped \n"
+  with _ ->  print_string "\nBye \n"
 
     
 let _ = evaluate () 
