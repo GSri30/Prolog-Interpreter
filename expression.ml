@@ -81,6 +81,6 @@ let rec printSolution (env:environment) =
             Printf.printf "%s =" v;
             print_argument t;
             Printf.printf ", ";
-            prinSolution xs;
+            printSolution xs;
          )
 ;;

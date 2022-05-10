@@ -29,4 +29,4 @@ val getSolution : environment -> var list -> (var * argument) list
 
 val print_argument : argument -> unit
     
-val prinSolution : environment -> unit
+val printSolution : environment -> unit

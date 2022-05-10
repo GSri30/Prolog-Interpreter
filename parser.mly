@@ -10,8 +10,8 @@
 %start filename
 %start database
 %start query
-%type <Helper.database> database
-%type <Helper.query> query
+%type <Expression.database> database
+%type <Expression.query> query
 %type <string> filename
 
 %%
