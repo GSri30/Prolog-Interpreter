@@ -1,4 +1,4 @@
-open Helper;;
+open Expression;;
 open Env;;
 
 let unifyClauses (c1:clause) (c2:clause) (env:environment) : environment = 
@@ -14,7 +14,7 @@ let unifyClauses (c1:clause) (c2:clause) (env:environment) : environment =
 let rec solveQuery (database:database) (q:query) (env:environment) (vars:var list) : (bool) =
     match q with
         Query([]) -> (
-            prinSolution (getSolution env vars);
+            printSolution (getSolution env vars);
             flush stdout;
             let choice = ref (get1char()) in
             while(!choice <> '.' && !choice <> ';') do

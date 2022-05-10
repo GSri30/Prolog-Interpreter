@@ -70,7 +70,7 @@ let rec print_argument (a:argument) =
     | Constant(s,l) -> Printf.printf " %s " s
 ;;
 
-let rec prinSolution (env:environment) = 
+let rec printSolution (env:environment) = 
     match env with 
          [] -> Printf.printf "true"
          | [(v,t)] -> (
