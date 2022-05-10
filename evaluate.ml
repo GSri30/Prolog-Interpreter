@@ -1,5 +1,5 @@
 let evaluate () =
-
+  try
     let cin =
       (if Array.length Sys.argv > 1 then
         open_in Sys.argv.(1)
@@ -10,15 +10,13 @@ let evaluate () =
     in
     let _ = flush stdout
     in
-    let filename =
-      (let input = Lexing.from_channel cin in
-        Parser.filename Lexer.scan input
-    )
+    let filename = (let input = Lexing.from_channel cin in
+        Parser.filename Lexer.scan input)
     in
-    let file_handle = open_in filename in
-    let database = (let lexbuf = Lexing.from_channel file_handle in
-       Parser.database Lexer.scan lexbuf
-    )
+    let file_handle = open_in filename 
+    in
+    let database = (let lexbuf = Lexing.from_channel file_handle in 
+      Parser.database Lexer.scan lexbuf)
     in
     let _ = print_string "true.\n\n" in
     let lexbuf = Lexing.from_channel stdin in
@@ -31,6 +29,7 @@ let evaluate () =
     true -> print_string "\n"
     | false -> print_string "false.\n\n"  
     done
+  with _ ->  print_string "\n Stopped \n"
 
     
 let _ = evaluate () 
